@@ -1,0 +1,16 @@
+#!/bin/bash
+source config.sh
+echo "container_name: $CONTAINER_NAME"
+echo "port: $PORT"
+
+ROOT="$(pwd)/$(dirname "$0")"
+
+mkdir -p "${ROOT}/log"
+mkdir -p "${ROOT}/data"
+
+docker run -d --name $CONTAINER_NAME -it -p $PORT:50051 -u `id -u $USER` \
+         -v "${ROOT}/log":/app/log \
+         -v "${ROOT}/data":/app/data \
+         daangn/faiss-server server.py $DIM --log "log/${CONTAINER_NAME}.log" \
+           --save_path data/${CONTAINER_NAME}.index \
+           --debug

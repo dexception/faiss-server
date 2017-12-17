@@ -1,0 +1,3 @@
+#!/bin/bash
+source config.sh $1
+PORT=$PORT DIM=$DIM python client.py

@@ -10,8 +10,9 @@ import faissindex_pb2_grpc as pb2_grpc
 
 def run():
     host = 'localhost'
-    port = 50051
-    dim = 100
+    print(os.environ)
+    port = int(os.environ['PORT'])
+    dim = int(os.environ['DIM'])
     print("host: %s:%d" % (host, port))
 
     channel = grpc.insecure_channel('%s:%d' % (host, port))

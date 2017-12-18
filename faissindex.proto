@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package faiss;
+package faiss_index;
 
-service Index {
+service Server {
   rpc Add (AddRequest) returns (SimpleResponse) {}
   rpc Remove (IdRequest) returns (SimpleResponse) {}
   rpc Search (SearchRequest) returns (SearchResponse) {}

@@ -7,7 +7,7 @@ from faiss_index import FaissIndex
 import faissindex_pb2 as pb2
 import faissindex_pb2_grpc as pb2_grpc
 
-class FaissServer(pb2_grpc.IndexServicer):
+class FaissServer(pb2_grpc.ServerServicer):
     def __init__(self, dim, save_path):
         logging.debug('dim: %d', dim)
         logging.debug('save_path: %s', save_path)

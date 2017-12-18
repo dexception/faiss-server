@@ -4,7 +4,7 @@ import grpc
 import faissindex_pb2 as faissindex__pb2
 
 
-class IndexStub(object):
+class ServerStub(object):
   # missing associated documentation comment in .proto file
   pass
 
@@ -15,38 +15,38 @@ class IndexStub(object):
       channel: A grpc.Channel.
     """
     self.Add = channel.unary_unary(
-        '/faiss.Index/Add',
+        '/faiss_index.Server/Add',
         request_serializer=faissindex__pb2.AddRequest.SerializeToString,
         response_deserializer=faissindex__pb2.SimpleResponse.FromString,
         )
     self.Remove = channel.unary_unary(
-        '/faiss.Index/Remove',
+        '/faiss_index.Server/Remove',
         request_serializer=faissindex__pb2.IdRequest.SerializeToString,
         response_deserializer=faissindex__pb2.SimpleResponse.FromString,
         )
     self.Search = channel.unary_unary(
-        '/faiss.Index/Search',
+        '/faiss_index.Server/Search',
         request_serializer=faissindex__pb2.SearchRequest.SerializeToString,
         response_deserializer=faissindex__pb2.SearchResponse.FromString,
         )
     self.Restore = channel.unary_unary(
-        '/faiss.Index/Restore',
+        '/faiss_index.Server/Restore',
         request_serializer=faissindex__pb2.RestoreRequest.SerializeToString,
         response_deserializer=faissindex__pb2.SimpleResponse.FromString,
         )
     self.Import = channel.unary_unary(
-        '/faiss.Index/Import',
+        '/faiss_index.Server/Import',
         request_serializer=faissindex__pb2.ImportRequest.SerializeToString,
         response_deserializer=faissindex__pb2.SimpleResponse.FromString,
         )
     self.Total = channel.unary_unary(
-        '/faiss.Index/Total',
+        '/faiss_index.Server/Total',
         request_serializer=faissindex__pb2.EmptyRequest.SerializeToString,
         response_deserializer=faissindex__pb2.TotalResponse.FromString,
         )
 
 
-class IndexServicer(object):
+class ServerServicer(object):
   # missing associated documentation comment in .proto file
   pass
 
@@ -93,7 +93,7 @@ class IndexServicer(object):
     raise NotImplementedError('Method not implemented!')
 
 
-def add_IndexServicer_to_server(servicer, server):
+def add_ServerServicer_to_server(servicer, server):
   rpc_method_handlers = {
       'Add': grpc.unary_unary_rpc_method_handler(
           servicer.Add,
@@ -127,5 +127,5 @@ def add_IndexServicer_to_server(servicer, server):
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
-      'faiss.Index', rpc_method_handlers)
+      'faiss_index.Server', rpc_method_handlers)
   server.add_generic_rpc_handlers((generic_handler,))

@@ -17,9 +17,9 @@ _sym_db = _symbol_database.Default()
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='faissindex.proto',
-  package='faiss',
+  package='faiss_index',
   syntax='proto3',
-  serialized_pb=_b('\n\x10\x66\x61issindex.proto\x12\x05\x66\x61iss\"+\n\nAddRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x11\n\tembedding\x18\x02 \x03(\x02\"\x17\n\tIdRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"*\n\rSearchRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\"#\n\x0eRestoreRequest\x12\x11\n\tsave_path\x18\x01 \x01(\t\"4\n\rImportRequest\x12\x11\n\tembs_path\x18\x01 \x01(\t\x12\x10\n\x08ids_path\x18\x02 \x01(\t\"\x0e\n\x0c\x45mptyRequest\"!\n\x0eSimpleResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\"-\n\x0eSearchResponse\x12\x0b\n\x03ids\x18\x01 \x03(\x03\x12\x0e\n\x06scores\x18\x02 \x03(\x02\"\x1e\n\rTotalResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x32\xd2\x02\n\x05Index\x12\x31\n\x03\x41\x64\x64\x12\x11.faiss.AddRequest\x1a\x15.faiss.SimpleResponse\"\x00\x12\x33\n\x06Remove\x12\x10.faiss.IdRequest\x1a\x15.faiss.SimpleResponse\"\x00\x12\x37\n\x06Search\x12\x14.faiss.SearchRequest\x1a\x15.faiss.SearchResponse\"\x00\x12\x39\n\x07Restore\x12\x15.faiss.RestoreRequest\x1a\x15.faiss.SimpleResponse\"\x00\x12\x37\n\x06Import\x12\x14.faiss.ImportRequest\x1a\x15.faiss.SimpleResponse\"\x00\x12\x34\n\x05Total\x12\x13.faiss.EmptyRequest\x1a\x14.faiss.TotalResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x10\x66\x61issindex.proto\x12\x0b\x66\x61iss_index\"+\n\nAddRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x11\n\tembedding\x18\x02 \x03(\x02\"\x17\n\tIdRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"*\n\rSearchRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\"#\n\x0eRestoreRequest\x12\x11\n\tsave_path\x18\x01 \x01(\t\"4\n\rImportRequest\x12\x11\n\tembs_path\x18\x01 \x01(\t\x12\x10\n\x08ids_path\x18\x02 \x01(\t\"\x0e\n\x0c\x45mptyRequest\"!\n\x0eSimpleResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\"-\n\x0eSearchResponse\x12\x0b\n\x03ids\x18\x01 \x03(\x03\x12\x0e\n\x06scores\x18\x02 \x03(\x02\"\x1e\n\rTotalResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x32\x9b\x03\n\x06Server\x12=\n\x03\x41\x64\x64\x12\x17.faiss_index.AddRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12?\n\x06Remove\x12\x16.faiss_index.IdRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12\x43\n\x06Search\x12\x1a.faiss_index.SearchRequest\x1a\x1b.faiss_index.SearchResponse\"\x00\x12\x45\n\x07Restore\x12\x1b.faiss_index.RestoreRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12\x43\n\x06Import\x12\x1a.faiss_index.ImportRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12@\n\x05Total\x12\x19.faiss_index.EmptyRequest\x1a\x1a.faiss_index.TotalResponse\"\x00\x62\x06proto3')
 )
 
 
@@ -27,20 +27,20 @@ DESCRIPTOR = _descriptor.FileDescriptor(
 
 _ADDREQUEST = _descriptor.Descriptor(
   name='AddRequest',
-  full_name='faiss.AddRequest',
+  full_name='faiss_index.AddRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='faiss.AddRequest.id', index=0,
+      name='id', full_name='faiss_index.AddRequest.id', index=0,
       number=1, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='embedding', full_name='faiss.AddRequest.embedding', index=1,
+      name='embedding', full_name='faiss_index.AddRequest.embedding', index=1,
       number=2, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -58,20 +58,20 @@ _ADDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=27,
-  serialized_end=70,
+  serialized_start=33,
+  serialized_end=76,
 )
 
 
 _IDREQUEST = _descriptor.Descriptor(
   name='IdRequest',
-  full_name='faiss.IdRequest',
+  full_name='faiss_index.IdRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='faiss.IdRequest.id', index=0,
+      name='id', full_name='faiss_index.IdRequest.id', index=0,
       number=1, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -89,27 +89,27 @@ _IDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=72,
-  serialized_end=95,
+  serialized_start=78,
+  serialized_end=101,
 )
 
 
 _SEARCHREQUEST = _descriptor.Descriptor(
   name='SearchRequest',
-  full_name='faiss.SearchRequest',
+  full_name='faiss_index.SearchRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='faiss.SearchRequest.id', index=0,
+      name='id', full_name='faiss_index.SearchRequest.id', index=0,
       number=1, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='count', full_name='faiss.SearchRequest.count', index=1,
+      name='count', full_name='faiss_index.SearchRequest.count', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -127,20 +127,20 @@ _SEARCHREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=97,
-  serialized_end=139,
+  serialized_start=103,
+  serialized_end=145,
 )
 
 
 _RESTOREREQUEST = _descriptor.Descriptor(
   name='RestoreRequest',
-  full_name='faiss.RestoreRequest',
+  full_name='faiss_index.RestoreRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='save_path', full_name='faiss.RestoreRequest.save_path', index=0,
+      name='save_path', full_name='faiss_index.RestoreRequest.save_path', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -158,27 +158,27 @@ _RESTOREREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=141,
-  serialized_end=176,
+  serialized_start=147,
+  serialized_end=182,
 )
 
 
 _IMPORTREQUEST = _descriptor.Descriptor(
   name='ImportRequest',
-  full_name='faiss.ImportRequest',
+  full_name='faiss_index.ImportRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='embs_path', full_name='faiss.ImportRequest.embs_path', index=0,
+      name='embs_path', full_name='faiss_index.ImportRequest.embs_path', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='ids_path', full_name='faiss.ImportRequest.ids_path', index=1,
+      name='ids_path', full_name='faiss_index.ImportRequest.ids_path', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -196,14 +196,14 @@ _IMPORTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=178,
-  serialized_end=230,
+  serialized_start=184,
+  serialized_end=236,
 )
 
 
 _EMPTYREQUEST = _descriptor.Descriptor(
   name='EmptyRequest',
-  full_name='faiss.EmptyRequest',
+  full_name='faiss_index.EmptyRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
@@ -220,20 +220,20 @@ _EMPTYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=232,
-  serialized_end=246,
+  serialized_start=238,
+  serialized_end=252,
 )
 
 
 _SIMPLERESPONSE = _descriptor.Descriptor(
   name='SimpleResponse',
-  full_name='faiss.SimpleResponse',
+  full_name='faiss_index.SimpleResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='message', full_name='faiss.SimpleResponse.message', index=0,
+      name='message', full_name='faiss_index.SimpleResponse.message', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -251,27 +251,27 @@ _SIMPLERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=248,
-  serialized_end=281,
+  serialized_start=254,
+  serialized_end=287,
 )
 
 
 _SEARCHRESPONSE = _descriptor.Descriptor(
   name='SearchResponse',
-  full_name='faiss.SearchResponse',
+  full_name='faiss_index.SearchResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='ids', full_name='faiss.SearchResponse.ids', index=0,
+      name='ids', full_name='faiss_index.SearchResponse.ids', index=0,
       number=1, type=3, cpp_type=2, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='scores', full_name='faiss.SearchResponse.scores', index=1,
+      name='scores', full_name='faiss_index.SearchResponse.scores', index=1,
       number=2, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -289,20 +289,20 @@ _SEARCHRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=283,
-  serialized_end=328,
+  serialized_start=289,
+  serialized_end=334,
 )
 
 
 _TOTALRESPONSE = _descriptor.Descriptor(
   name='TotalResponse',
-  full_name='faiss.TotalResponse',
+  full_name='faiss_index.TotalResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='count', full_name='faiss.TotalResponse.count', index=0,
+      name='count', full_name='faiss_index.TotalResponse.count', index=0,
       number=1, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -320,8 +320,8 @@ _TOTALRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=330,
-  serialized_end=360,
+  serialized_start=336,
+  serialized_end=366,
 )
 
 DESCRIPTOR.message_types_by_name['AddRequest'] = _ADDREQUEST
@@ -338,80 +338,80 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 AddRequest = _reflection.GeneratedProtocolMessageType('AddRequest', (_message.Message,), dict(
   DESCRIPTOR = _ADDREQUEST,
   __module__ = 'faissindex_pb2'
-  # @@protoc_insertion_point(class_scope:faiss.AddRequest)
+  # @@protoc_insertion_point(class_scope:faiss_index.AddRequest)
   ))
 _sym_db.RegisterMessage(AddRequest)
 
 IdRequest = _reflection.GeneratedProtocolMessageType('IdRequest', (_message.Message,), dict(
   DESCRIPTOR = _IDREQUEST,
   __module__ = 'faissindex_pb2'
-  # @@protoc_insertion_point(class_scope:faiss.IdRequest)
+  # @@protoc_insertion_point(class_scope:faiss_index.IdRequest)
   ))
 _sym_db.RegisterMessage(IdRequest)
 
 SearchRequest = _reflection.GeneratedProtocolMessageType('SearchRequest', (_message.Message,), dict(
   DESCRIPTOR = _SEARCHREQUEST,
   __module__ = 'faissindex_pb2'
-  # @@protoc_insertion_point(class_scope:faiss.SearchRequest)
+  # @@protoc_insertion_point(class_scope:faiss_index.SearchRequest)
   ))
 _sym_db.RegisterMessage(SearchRequest)
 
 RestoreRequest = _reflection.GeneratedProtocolMessageType('RestoreRequest', (_message.Message,), dict(
   DESCRIPTOR = _RESTOREREQUEST,
   __module__ = 'faissindex_pb2'
-  # @@protoc_insertion_point(class_scope:faiss.RestoreRequest)
+  # @@protoc_insertion_point(class_scope:faiss_index.RestoreRequest)
   ))
 _sym_db.RegisterMessage(RestoreRequest)
 
 ImportRequest = _reflection.GeneratedProtocolMessageType('ImportRequest', (_message.Message,), dict(
   DESCRIPTOR = _IMPORTREQUEST,
   __module__ = 'faissindex_pb2'
-  # @@protoc_insertion_point(class_scope:faiss.ImportRequest)
+  # @@protoc_insertion_point(class_scope:faiss_index.ImportRequest)
   ))
 _sym_db.RegisterMessage(ImportRequest)
 
 EmptyRequest = _reflection.GeneratedProtocolMessageType('EmptyRequest', (_message.Message,), dict(
   DESCRIPTOR = _EMPTYREQUEST,
   __module__ = 'faissindex_pb2'
-  # @@protoc_insertion_point(class_scope:faiss.EmptyRequest)
+  # @@protoc_insertion_point(class_scope:faiss_index.EmptyRequest)
   ))
 _sym_db.RegisterMessage(EmptyRequest)
 
 SimpleResponse = _reflection.GeneratedProtocolMessageType('SimpleResponse', (_message.Message,), dict(
   DESCRIPTOR = _SIMPLERESPONSE,
   __module__ = 'faissindex_pb2'
-  # @@protoc_insertion_point(class_scope:faiss.SimpleResponse)
+  # @@protoc_insertion_point(class_scope:faiss_index.SimpleResponse)
   ))
 _sym_db.RegisterMessage(SimpleResponse)
 
 SearchResponse = _reflection.GeneratedProtocolMessageType('SearchResponse', (_message.Message,), dict(
   DESCRIPTOR = _SEARCHRESPONSE,
   __module__ = 'faissindex_pb2'
-  # @@protoc_insertion_point(class_scope:faiss.SearchResponse)
+  # @@protoc_insertion_point(class_scope:faiss_index.SearchResponse)
   ))
 _sym_db.RegisterMessage(SearchResponse)
 
 TotalResponse = _reflection.GeneratedProtocolMessageType('TotalResponse', (_message.Message,), dict(
   DESCRIPTOR = _TOTALRESPONSE,
   __module__ = 'faissindex_pb2'
-  # @@protoc_insertion_point(class_scope:faiss.TotalResponse)
+  # @@protoc_insertion_point(class_scope:faiss_index.TotalResponse)
   ))
 _sym_db.RegisterMessage(TotalResponse)
 
 
 
-_INDEX = _descriptor.ServiceDescriptor(
-  name='Index',
-  full_name='faiss.Index',
+_SERVER = _descriptor.ServiceDescriptor(
+  name='Server',
+  full_name='faiss_index.Server',
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=363,
-  serialized_end=701,
+  serialized_start=369,
+  serialized_end=780,
   methods=[
   _descriptor.MethodDescriptor(
     name='Add',
-    full_name='faiss.Index.Add',
+    full_name='faiss_index.Server.Add',
     index=0,
     containing_service=None,
     input_type=_ADDREQUEST,
@@ -420,7 +420,7 @@ _INDEX = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='Remove',
-    full_name='faiss.Index.Remove',
+    full_name='faiss_index.Server.Remove',
     index=1,
     containing_service=None,
     input_type=_IDREQUEST,
@@ -429,7 +429,7 @@ _INDEX = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='Search',
-    full_name='faiss.Index.Search',
+    full_name='faiss_index.Server.Search',
     index=2,
     containing_service=None,
     input_type=_SEARCHREQUEST,
@@ -438,7 +438,7 @@ _INDEX = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='Restore',
-    full_name='faiss.Index.Restore',
+    full_name='faiss_index.Server.Restore',
     index=3,
     containing_service=None,
     input_type=_RESTOREREQUEST,
@@ -447,7 +447,7 @@ _INDEX = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='Import',
-    full_name='faiss.Index.Import',
+    full_name='faiss_index.Server.Import',
     index=4,
     containing_service=None,
     input_type=_IMPORTREQUEST,
@@ -456,7 +456,7 @@ _INDEX = _descriptor.ServiceDescriptor(
   ),
   _descriptor.MethodDescriptor(
     name='Total',
-    full_name='faiss.Index.Total',
+    full_name='faiss_index.Server.Total',
     index=5,
     containing_service=None,
     input_type=_EMPTYREQUEST,
@@ -464,9 +464,9 @@ _INDEX = _descriptor.ServiceDescriptor(
     options=None,
   ),
 ])
-_sym_db.RegisterServiceDescriptor(_INDEX)
+_sym_db.RegisterServiceDescriptor(_SERVER)
 
-DESCRIPTOR.services_by_name['Index'] = _INDEX
+DESCRIPTOR.services_by_name['Server'] = _SERVER
 
 try:
   # THESE ELEMENTS WILL BE DEPRECATED.
@@ -478,7 +478,7 @@ try:
   from grpc.framework.interfaces.face import utilities as face_utilities
 
 
-  class IndexStub(object):
+  class ServerStub(object):
     # missing associated documentation comment in .proto file
     pass
 
@@ -489,38 +489,38 @@ try:
         channel: A grpc.Channel.
       """
       self.Add = channel.unary_unary(
-          '/faiss.Index/Add',
+          '/faiss_index.Server/Add',
           request_serializer=AddRequest.SerializeToString,
           response_deserializer=SimpleResponse.FromString,
           )
       self.Remove = channel.unary_unary(
-          '/faiss.Index/Remove',
+          '/faiss_index.Server/Remove',
           request_serializer=IdRequest.SerializeToString,
           response_deserializer=SimpleResponse.FromString,
           )
       self.Search = channel.unary_unary(
-          '/faiss.Index/Search',
+          '/faiss_index.Server/Search',
           request_serializer=SearchRequest.SerializeToString,
           response_deserializer=SearchResponse.FromString,
           )
       self.Restore = channel.unary_unary(
-          '/faiss.Index/Restore',
+          '/faiss_index.Server/Restore',
           request_serializer=RestoreRequest.SerializeToString,
           response_deserializer=SimpleResponse.FromString,
           )
       self.Import = channel.unary_unary(
-          '/faiss.Index/Import',
+          '/faiss_index.Server/Import',
           request_serializer=ImportRequest.SerializeToString,
           response_deserializer=SimpleResponse.FromString,
           )
       self.Total = channel.unary_unary(
-          '/faiss.Index/Total',
+          '/faiss_index.Server/Total',
           request_serializer=EmptyRequest.SerializeToString,
           response_deserializer=TotalResponse.FromString,
           )
 
 
-  class IndexServicer(object):
+  class ServerServicer(object):
     # missing associated documentation comment in .proto file
     pass
 
@@ -567,7 +567,7 @@ try:
       raise NotImplementedError('Method not implemented!')
 
 
-  def add_IndexServicer_to_server(servicer, server):
+  def add_ServerServicer_to_server(servicer, server):
     rpc_method_handlers = {
         'Add': grpc.unary_unary_rpc_method_handler(
             servicer.Add,
@@ -601,11 +601,11 @@ try:
         ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        'faiss.Index', rpc_method_handlers)
+        'faiss_index.Server', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
-  class BetaIndexServicer(object):
+  class BetaServerServicer(object):
     """The Beta API is deprecated for 0.15.0 and later.
 
     It is recommended to use the GA API (classes and functions in this
@@ -639,7 +639,7 @@ try:
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
 
 
-  class BetaIndexStub(object):
+  class BetaServerStub(object):
     """The Beta API is deprecated for 0.15.0 and later.
 
     It is recommended to use the GA API (classes and functions in this
@@ -679,61 +679,61 @@ try:
     Total.future = None
 
 
-  def beta_create_Index_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
+  def beta_create_Server_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
     """The Beta API is deprecated for 0.15.0 and later.
 
     It is recommended to use the GA API (classes and functions in this
     file not marked beta) for all further purposes. This function was
     generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
     request_deserializers = {
-      ('faiss.Index', 'Add'): AddRequest.FromString,
-      ('faiss.Index', 'Import'): ImportRequest.FromString,
-      ('faiss.Index', 'Remove'): IdRequest.FromString,
-      ('faiss.Index', 'Restore'): RestoreRequest.FromString,
-      ('faiss.Index', 'Search'): SearchRequest.FromString,
-      ('faiss.Index', 'Total'): EmptyRequest.FromString,
+      ('faiss_index.Server', 'Add'): AddRequest.FromString,
+      ('faiss_index.Server', 'Import'): ImportRequest.FromString,
+      ('faiss_index.Server', 'Remove'): IdRequest.FromString,
+      ('faiss_index.Server', 'Restore'): RestoreRequest.FromString,
+      ('faiss_index.Server', 'Search'): SearchRequest.FromString,
+      ('faiss_index.Server', 'Total'): EmptyRequest.FromString,
     }
     response_serializers = {
-      ('faiss.Index', 'Add'): SimpleResponse.SerializeToString,
-      ('faiss.Index', 'Import'): SimpleResponse.SerializeToString,
-      ('faiss.Index', 'Remove'): SimpleResponse.SerializeToString,
-      ('faiss.Index', 'Restore'): SimpleResponse.SerializeToString,
-      ('faiss.Index', 'Search'): SearchResponse.SerializeToString,
-      ('faiss.Index', 'Total'): TotalResponse.SerializeToString,
+      ('faiss_index.Server', 'Add'): SimpleResponse.SerializeToString,
+      ('faiss_index.Server', 'Import'): SimpleResponse.SerializeToString,
+      ('faiss_index.Server', 'Remove'): SimpleResponse.SerializeToString,
+      ('faiss_index.Server', 'Restore'): SimpleResponse.SerializeToString,
+      ('faiss_index.Server', 'Search'): SearchResponse.SerializeToString,
+      ('faiss_index.Server', 'Total'): TotalResponse.SerializeToString,
     }
     method_implementations = {
-      ('faiss.Index', 'Add'): face_utilities.unary_unary_inline(servicer.Add),
-      ('faiss.Index', 'Import'): face_utilities.unary_unary_inline(servicer.Import),
-      ('faiss.Index', 'Remove'): face_utilities.unary_unary_inline(servicer.Remove),
-      ('faiss.Index', 'Restore'): face_utilities.unary_unary_inline(servicer.Restore),
-      ('faiss.Index', 'Search'): face_utilities.unary_unary_inline(servicer.Search),
-      ('faiss.Index', 'Total'): face_utilities.unary_unary_inline(servicer.Total),
+      ('faiss_index.Server', 'Add'): face_utilities.unary_unary_inline(servicer.Add),
+      ('faiss_index.Server', 'Import'): face_utilities.unary_unary_inline(servicer.Import),
+      ('faiss_index.Server', 'Remove'): face_utilities.unary_unary_inline(servicer.Remove),
+      ('faiss_index.Server', 'Restore'): face_utilities.unary_unary_inline(servicer.Restore),
+      ('faiss_index.Server', 'Search'): face_utilities.unary_unary_inline(servicer.Search),
+      ('faiss_index.Server', 'Total'): face_utilities.unary_unary_inline(servicer.Total),
     }
     server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
     return beta_implementations.server(method_implementations, options=server_options)
 
 
-  def beta_create_Index_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
+  def beta_create_Server_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
     """The Beta API is deprecated for 0.15.0 and later.
 
     It is recommended to use the GA API (classes and functions in this
     file not marked beta) for all further purposes. This function was
     generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
     request_serializers = {
-      ('faiss.Index', 'Add'): AddRequest.SerializeToString,
-      ('faiss.Index', 'Import'): ImportRequest.SerializeToString,
-      ('faiss.Index', 'Remove'): IdRequest.SerializeToString,
-      ('faiss.Index', 'Restore'): RestoreRequest.SerializeToString,
-      ('faiss.Index', 'Search'): SearchRequest.SerializeToString,
-      ('faiss.Index', 'Total'): EmptyRequest.SerializeToString,
+      ('faiss_index.Server', 'Add'): AddRequest.SerializeToString,
+      ('faiss_index.Server', 'Import'): ImportRequest.SerializeToString,
+      ('faiss_index.Server', 'Remove'): IdRequest.SerializeToString,
+      ('faiss_index.Server', 'Restore'): RestoreRequest.SerializeToString,
+      ('faiss_index.Server', 'Search'): SearchRequest.SerializeToString,
+      ('faiss_index.Server', 'Total'): EmptyRequest.SerializeToString,
     }
     response_deserializers = {
-      ('faiss.Index', 'Add'): SimpleResponse.FromString,
-      ('faiss.Index', 'Import'): SimpleResponse.FromString,
-      ('faiss.Index', 'Remove'): SimpleResponse.FromString,
-      ('faiss.Index', 'Restore'): SimpleResponse.FromString,
-      ('faiss.Index', 'Search'): SearchResponse.FromString,
-      ('faiss.Index', 'Total'): TotalResponse.FromString,
+      ('faiss_index.Server', 'Add'): SimpleResponse.FromString,
+      ('faiss_index.Server', 'Import'): SimpleResponse.FromString,
+      ('faiss_index.Server', 'Remove'): SimpleResponse.FromString,
+      ('faiss_index.Server', 'Restore'): SimpleResponse.FromString,
+      ('faiss_index.Server', 'Search'): SearchResponse.FromString,
+      ('faiss_index.Server', 'Total'): TotalResponse.FromString,
     }
     cardinalities = {
       'Add': cardinality.Cardinality.UNARY_UNARY,
@@ -744,7 +744,7 @@ try:
       'Total': cardinality.Cardinality.UNARY_UNARY,
     }
     stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
-    return beta_implementations.dynamic_stub(channel, 'faiss.Index', cardinalities, options=stub_options)
+    return beta_implementations.dynamic_stub(channel, 'faiss_index.Server', cardinalities, options=stub_options)
 except ImportError:
   pass
 # @@protoc_insertion_point(module_scope)

@@ -33,7 +33,7 @@ def main(dim, save_path, log, debug):
     logging.info('server loading...')
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=1))
     servicer = FaissServer(dim, save_path)
-    pb2_grpc.add_IndexServicer_to_server(servicer, server)
+    pb2_grpc.add_ServerServicer_to_server(servicer, server)
     server.add_insecure_port('[::]:50051')
     server.start()
     logging.info('server started')

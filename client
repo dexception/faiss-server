@@ -8,7 +8,7 @@ CMD=$2
 
 if [ $CMD == 'test' ]; then
   docker exec -it $CONTAINER_ID python3 client.py "${@:2}" --dim=$DIM
-elif [ $CMD == 'import' ]; then
+else
   echo $CMD
   docker exec -it $CONTAINER_ID python3 client.py "${@:2}"
 fi

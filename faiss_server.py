@@ -1,4 +1,6 @@
 import logging
+from tempfile import gettempdirb
+from time import time
 
 import numpy as np
 from pandas import read_csv
@@ -7,10 +9,40 @@ from faiss_index import FaissIndex
 import faissindex_pb2 as pb2
 import faissindex_pb2_grpc as pb2_grpc
 
+import boto3
+
+# Disable debug logs of the boto lib
+logging.getLogger('botocore').setLevel(logging.INFO)
+logging.getLogger('boto3').setLevel(logging.INFO)
+logging.getLogger('s3transfer').setLevel(logging.INFO)
+
+def down_if_remote_path(save_path):
+    remote_path, local_path = parse_remote_path(save_path)
+    if not remote_path:
+        return None, local_path
+
+    s3 = boto3.resource('s3')
+    tokens = remote_path.replace('s3://', '').split('/')
+    bucket_name = tokens[0]
+    key = '/'.join(tokens[1:])
+    s3.Bucket(bucket_name).download_file(key, local_path)
+    return remote_path, local_path
+
+def parse_remote_path(save_path):
+    if save_path is None or not save_path.startswith('s3://'):
+        return None, save_path
+    remote_path = save_path
+    save_path = "%s/faiss-%d.index" % (gettempdirb().decode("utf-8"), time())
+    return remote_path, save_path
+
 class FaissServer(pb2_grpc.ServerServicer):
     def __init__(self, dim, save_path):
         logging.debug('dim: %d', dim)
         logging.debug('save_path: %s', save_path)
+
+        remote_path, save_path = down_if_remote_path(save_path)
+
+        self._remote_path = remote_path
         self._save_path = save_path
         self._index = FaissIndex(dim, save_path)
         logging.debug('ntotal: %d', self._index.ntotal())
@@ -42,7 +74,9 @@ class FaissServer(pb2_grpc.ServerServicer):
 
     def Restore(self, request, context):
         logging.debug('restore - %s', request.save_path)
-        self._save_path = request.save_path
+        remote_path, save_path = down_if_remote_path(request.save_path)
+        self._remote_path = remote_path
+        self._save_path = save_path
         self._index.restore(request.save_path)
         return pb2.SimpleResponse(message='Restored, %s!' % request.save_path)
 
@@ -60,7 +94,7 @@ class FaissServer(pb2_grpc.ServerServicer):
         self._index.replace(X, ids)
         return pb2.SimpleResponse(message='Imported, %s, %s!' % (request.embs_path, request.ids_path))
 
-    def stop(self):
+    def save(self):
         logging.debug('saving index to %s', self._save_path)
         self._index.save(self._save_path)
 

@@ -1,14 +1,12 @@
 #!/bin/bash
-source $(dirname "$0")/config.sh $1
+CONTAINER_NAME=$1
 echo "container_name: $CONTAINER_NAME"
-echo "port: $PORT"
-
 CONTAINER_ID=$(docker ps -aqf "name=$CONTAINER_NAME")
 CMD=$2
 
 if [ $CMD == 'test' ]; then
-  docker exec -it $CONTAINER_ID python3 client.py "${@:2}" --dim=$DIM
+  docker exec -it $CONTAINER_ID python client.py "${@:2}" --dim=$DIM
 else
   echo $CMD
-  docker exec -it $CONTAINER_ID python3 client.py "${@:2}"
+  docker exec -it $CONTAINER_ID python client.py "${@:2}"
 fi

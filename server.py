@@ -15,10 +15,11 @@ _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
 @click.command()
 @click.argument('dim', type=int)
-@click.option('--save_path', default='faiss_server.index', help='index save path')
+@click.option('--save-path', default='faiss_server.index', help='index save path')
 @click.option('--log', help='log filepath')
 @click.option('--debug', is_flag=True, help='debug')
-def main(dim, save_path, log, debug):
+@click.option('--no-save', is_flag=True, help='no save when stop service')
+def main(dim, save_path, log, debug, no_save):
     if log:
         handler = logging.FileHandler(filename=log)
     else:
@@ -52,7 +53,8 @@ def main(dim, save_path, log, debug):
             time.sleep(_ONE_DAY_IN_SECONDS)
     except KeyboardInterrupt:
         server.stop(0)
-        servicer.stop()
+        if not no_save:
+            servicer.save()
         logging.info('server stopped')
 
 

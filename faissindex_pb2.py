@@ -38,14 +38,14 @@ _ADDREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='embedding', full_name='faiss_index.AddRequest.embedding', index=1,
       number=2, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -76,7 +76,7 @@ _IDREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -107,14 +107,14 @@ _SEARCHREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='count', full_name='faiss_index.SearchRequest.count', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -145,7 +145,7 @@ _RESTOREREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -176,14 +176,14 @@ _IMPORTREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='ids_path', full_name='faiss_index.ImportRequest.ids_path', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -238,7 +238,7 @@ _SIMPLERESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -269,14 +269,14 @@ _SEARCHRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='scores', full_name='faiss_index.SearchResponse.scores', index=1,
       number=2, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -307,7 +307,7 @@ _TOTALRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -468,283 +468,4 @@ _sym_db.RegisterServiceDescriptor(_SERVER)
 
 DESCRIPTOR.services_by_name['Server'] = _SERVER
 
-try:
-  # THESE ELEMENTS WILL BE DEPRECATED.
-  # Please use the generated *_pb2_grpc.py files instead.
-  import grpc
-  from grpc.beta import implementations as beta_implementations
-  from grpc.beta import interfaces as beta_interfaces
-  from grpc.framework.common import cardinality
-  from grpc.framework.interfaces.face import utilities as face_utilities
-
-
-  class ServerStub(object):
-    # missing associated documentation comment in .proto file
-    pass
-
-    def __init__(self, channel):
-      """Constructor.
-
-      Args:
-        channel: A grpc.Channel.
-      """
-      self.Add = channel.unary_unary(
-          '/faiss_index.Server/Add',
-          request_serializer=AddRequest.SerializeToString,
-          response_deserializer=SimpleResponse.FromString,
-          )
-      self.Remove = channel.unary_unary(
-          '/faiss_index.Server/Remove',
-          request_serializer=IdRequest.SerializeToString,
-          response_deserializer=SimpleResponse.FromString,
-          )
-      self.Search = channel.unary_unary(
-          '/faiss_index.Server/Search',
-          request_serializer=SearchRequest.SerializeToString,
-          response_deserializer=SearchResponse.FromString,
-          )
-      self.Restore = channel.unary_unary(
-          '/faiss_index.Server/Restore',
-          request_serializer=RestoreRequest.SerializeToString,
-          response_deserializer=SimpleResponse.FromString,
-          )
-      self.Import = channel.unary_unary(
-          '/faiss_index.Server/Import',
-          request_serializer=ImportRequest.SerializeToString,
-          response_deserializer=SimpleResponse.FromString,
-          )
-      self.Total = channel.unary_unary(
-          '/faiss_index.Server/Total',
-          request_serializer=EmptyRequest.SerializeToString,
-          response_deserializer=TotalResponse.FromString,
-          )
-
-
-  class ServerServicer(object):
-    # missing associated documentation comment in .proto file
-    pass
-
-    def Add(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def Remove(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def Search(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def Restore(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def Import(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def Total(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-
-  def add_ServerServicer_to_server(servicer, server):
-    rpc_method_handlers = {
-        'Add': grpc.unary_unary_rpc_method_handler(
-            servicer.Add,
-            request_deserializer=AddRequest.FromString,
-            response_serializer=SimpleResponse.SerializeToString,
-        ),
-        'Remove': grpc.unary_unary_rpc_method_handler(
-            servicer.Remove,
-            request_deserializer=IdRequest.FromString,
-            response_serializer=SimpleResponse.SerializeToString,
-        ),
-        'Search': grpc.unary_unary_rpc_method_handler(
-            servicer.Search,
-            request_deserializer=SearchRequest.FromString,
-            response_serializer=SearchResponse.SerializeToString,
-        ),
-        'Restore': grpc.unary_unary_rpc_method_handler(
-            servicer.Restore,
-            request_deserializer=RestoreRequest.FromString,
-            response_serializer=SimpleResponse.SerializeToString,
-        ),
-        'Import': grpc.unary_unary_rpc_method_handler(
-            servicer.Import,
-            request_deserializer=ImportRequest.FromString,
-            response_serializer=SimpleResponse.SerializeToString,
-        ),
-        'Total': grpc.unary_unary_rpc_method_handler(
-            servicer.Total,
-            request_deserializer=EmptyRequest.FromString,
-            response_serializer=TotalResponse.SerializeToString,
-        ),
-    }
-    generic_handler = grpc.method_handlers_generic_handler(
-        'faiss_index.Server', rpc_method_handlers)
-    server.add_generic_rpc_handlers((generic_handler,))
-
-
-  class BetaServerServicer(object):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This class was generated
-    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
-    # missing associated documentation comment in .proto file
-    pass
-    def Add(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def Remove(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def Search(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def Restore(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def Import(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def Total(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-
-
-  class BetaServerStub(object):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This class was generated
-    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
-    # missing associated documentation comment in .proto file
-    pass
-    def Add(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Add.future = None
-    def Remove(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Remove.future = None
-    def Search(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Search.future = None
-    def Restore(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Restore.future = None
-    def Import(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Import.future = None
-    def Total(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Total.future = None
-
-
-  def beta_create_Server_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This function was
-    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
-    request_deserializers = {
-      ('faiss_index.Server', 'Add'): AddRequest.FromString,
-      ('faiss_index.Server', 'Import'): ImportRequest.FromString,
-      ('faiss_index.Server', 'Remove'): IdRequest.FromString,
-      ('faiss_index.Server', 'Restore'): RestoreRequest.FromString,
-      ('faiss_index.Server', 'Search'): SearchRequest.FromString,
-      ('faiss_index.Server', 'Total'): EmptyRequest.FromString,
-    }
-    response_serializers = {
-      ('faiss_index.Server', 'Add'): SimpleResponse.SerializeToString,
-      ('faiss_index.Server', 'Import'): SimpleResponse.SerializeToString,
-      ('faiss_index.Server', 'Remove'): SimpleResponse.SerializeToString,
-      ('faiss_index.Server', 'Restore'): SimpleResponse.SerializeToString,
-      ('faiss_index.Server', 'Search'): SearchResponse.SerializeToString,
-      ('faiss_index.Server', 'Total'): TotalResponse.SerializeToString,
-    }
-    method_implementations = {
-      ('faiss_index.Server', 'Add'): face_utilities.unary_unary_inline(servicer.Add),
-      ('faiss_index.Server', 'Import'): face_utilities.unary_unary_inline(servicer.Import),
-      ('faiss_index.Server', 'Remove'): face_utilities.unary_unary_inline(servicer.Remove),
-      ('faiss_index.Server', 'Restore'): face_utilities.unary_unary_inline(servicer.Restore),
-      ('faiss_index.Server', 'Search'): face_utilities.unary_unary_inline(servicer.Search),
-      ('faiss_index.Server', 'Total'): face_utilities.unary_unary_inline(servicer.Total),
-    }
-    server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
-    return beta_implementations.server(method_implementations, options=server_options)
-
-
-  def beta_create_Server_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This function was
-    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
-    request_serializers = {
-      ('faiss_index.Server', 'Add'): AddRequest.SerializeToString,
-      ('faiss_index.Server', 'Import'): ImportRequest.SerializeToString,
-      ('faiss_index.Server', 'Remove'): IdRequest.SerializeToString,
-      ('faiss_index.Server', 'Restore'): RestoreRequest.SerializeToString,
-      ('faiss_index.Server', 'Search'): SearchRequest.SerializeToString,
-      ('faiss_index.Server', 'Total'): EmptyRequest.SerializeToString,
-    }
-    response_deserializers = {
-      ('faiss_index.Server', 'Add'): SimpleResponse.FromString,
-      ('faiss_index.Server', 'Import'): SimpleResponse.FromString,
-      ('faiss_index.Server', 'Remove'): SimpleResponse.FromString,
-      ('faiss_index.Server', 'Restore'): SimpleResponse.FromString,
-      ('faiss_index.Server', 'Search'): SearchResponse.FromString,
-      ('faiss_index.Server', 'Total'): TotalResponse.FromString,
-    }
-    cardinalities = {
-      'Add': cardinality.Cardinality.UNARY_UNARY,
-      'Import': cardinality.Cardinality.UNARY_UNARY,
-      'Remove': cardinality.Cardinality.UNARY_UNARY,
-      'Restore': cardinality.Cardinality.UNARY_UNARY,
-      'Search': cardinality.Cardinality.UNARY_UNARY,
-      'Total': cardinality.Cardinality.UNARY_UNARY,
-    }
-    stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
-    return beta_implementations.dynamic_stub(channel, 'faiss_index.Server', cardinalities, options=stub_options)
-except ImportError:
-  pass
 # @@protoc_insertion_point(module_scope)

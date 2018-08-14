@@ -1,3 +1,4 @@
+import os
 import logging
 from tempfile import gettempdirb
 from time import time
@@ -32,7 +33,8 @@ def parse_remote_path(save_path):
     if save_path is None or not save_path.startswith('s3://'):
         return None, save_path
     remote_path = save_path
-    save_path = "%s/faiss-%d.index" % (gettempdirb().decode("utf-8"), time())
+    filename = os.path.basename(remote_path)
+    save_path = "%s/%d-%s" % (gettempdirb().decode("utf-8"), time(), filename)
     return remote_path, save_path
 
 class FaissServer(pb2_grpc.ServerServicer):
@@ -82,9 +84,11 @@ class FaissServer(pb2_grpc.ServerServicer):
 
     def Import(self, request, context):
         logging.debug('importing - %s, %s', request.embs_path, request.ids_path)
-        df = read_csv(request.embs_path, delimiter="\t", header=None)
+        _, embs_path = down_if_remote_path(request.embs_path)
+        _, ids_path = down_if_remote_path(request.ids_path)
+        df = read_csv(embs_path, delimiter="\t", header=None)
         X = df.values
-        df = read_csv(request.ids_path, header=None)
+        df = read_csv(ids_path, header=None)
         ids = df[0].values
         logging.debug('%s', ids)
 

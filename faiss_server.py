@@ -83,6 +83,8 @@ class FaissServer(pb2_grpc.ServerServicer):
     def Search(self, request, context):
         logging.debug('search - id: %d, %s', request.id, request.key)
         if request.key:
+            if not self._key_index.contains(request.key):
+                return pb2.SearchResponse()
             request.id = self._key_index.get_loc(request.key)
         D, I = self._index.search_by_id(request.id, request.count)
         K = None

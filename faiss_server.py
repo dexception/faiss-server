@@ -3,6 +3,7 @@ import logging
 from tempfile import gettempdirb
 from time import time
 
+import pandas as pd
 import numpy as np
 from pandas import read_csv
 
@@ -13,7 +14,7 @@ import faissindex_pb2_grpc as pb2_grpc
 import boto3
 
 # Disable debug logs of the boto lib
-logging.getLogger('botocore').setLevel(logging.INFO)
+logging.getLogger('botocore').setLevel(logging.WARN)
 logging.getLogger('boto3').setLevel(logging.INFO)
 logging.getLogger('s3transfer').setLevel(logging.INFO)
 
@@ -38,16 +39,26 @@ def parse_remote_path(save_path):
     return remote_path, save_path
 
 class FaissServer(pb2_grpc.ServerServicer):
-    def __init__(self, dim, save_path):
+    def __init__(self, dim, save_path, keys_path):
         logging.debug('dim: %d', dim)
         logging.debug('save_path: %s', save_path)
+        logging.debug('keys_path: %s', keys_path)
 
         remote_path, save_path = down_if_remote_path(save_path)
 
         self._remote_path = remote_path
         self._save_path = save_path
         self._index = FaissIndex(dim, save_path)
+        self._keys, self._key_index = self._load_keys(keys_path)
         logging.debug('ntotal: %d', self._index.ntotal())
+
+    def _load_keys(self, keys_path):
+        if not keys_path:
+            return
+        _, keys_path = down_if_remote_path(keys_path)
+        keys = pd.read_csv(keys_path, header=None, squeeze=True)
+        key_index = pd.Index(keys)
+        return keys.values, key_index
 
     def Total(self, request, context):
         return pb2.TotalResponse(count=self._index.ntotal())
@@ -70,9 +81,14 @@ class FaissServer(pb2_grpc.ServerServicer):
         return pb2.SimpleResponse(message='Removed, %s!' % request.id)
 
     def Search(self, request, context):
-        logging.debug('search - id: %d', request.id)
+        logging.debug('search - id: %d, %s', request.id, request.key)
+        if request.key:
+            request.id = self._key_index.get_loc(request.key)
         D, I = self._index.search_by_id(request.id, request.count)
-        return pb2.SearchResponse(ids=I[0], scores=D[0])
+        K = None
+        if request.key:
+            K = self._keys[I[0]]
+        return pb2.SearchResponse(ids=I[0], scores=D[0], keys=K)
 
     def Restore(self, request, context):
         logging.debug('restore - %s', request.save_path)

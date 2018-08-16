@@ -8,9 +8,9 @@ ROOT="$(pwd)/$(dirname "$0")"
 mkdir -p "${ROOT}/log"
 mkdir -p "${ROOT}/data"
 
-docker run -d --name $CONTAINER_NAME -it -p $PORT:50051 -u `id -u $USER` \
+docker run -d --name $CONTAINER_NAME -it -p $PORT:50051 \
          -v "${ROOT}/log":/app/log \
-         -v "${ROOT}/data":/app/data \
+         --volumes-from aws-config \
          daangn/faiss-server server.py $DIM --log "log/${CONTAINER_NAME}.log" \
-           --save-path data/${CONTAINER_NAME}.index \
-           --debug
+           --save-path $SAVE_PATH \
+           --debug $ADDTIONAL

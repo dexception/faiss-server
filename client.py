@@ -74,13 +74,12 @@ def test(host, port, dim):
 
 
 @click.command('import')
-@click.argument('embs_path')
-@click.argument('ids_path')
-@click.option('--host', default='localhost', help='server host')
-@click.option('--port', default=50051, help='server port')
-def import_(host, port, embs_path, ids_path):
-    print("host: %s:%d" % (host, port))
-    channel = grpc.insecure_channel('%s:%d' % (host, port))
+@click.argument('embs-path')
+@click.argument('ids-path')
+@click.option('--host', default='localhost:50051', help='server host:port')
+def import_(host, embs_path, ids_path):
+    print("host: %s" % host)
+    channel = grpc.insecure_channel(host)
     stub = pb2_grpc.ServerStub(channel)
 
     response = stub.Total(pb2.EmptyRequest())
@@ -94,19 +93,30 @@ def import_(host, port, embs_path, ids_path):
 
 @click.command()
 @click.argument('id', type=int)
-@click.option('--host', default='localhost', help='server host')
-@click.option('--port', default=50051, help='server port')
-@click.option('--count', default=10, help='server port')
-def search(host, port, id, count):
-    print("host: %s:%d" % (host, port))
-    channel = grpc.insecure_channel('%s:%d' % (host, port))
+@click.option('--host', default='localhost:50051', help='server host:port')
+@click.option('--count', default=10, help='server limit count')
+def search(host, id, count):
+    print("host: %s" % host)
+    channel = grpc.insecure_channel(host)
     stub = pb2_grpc.ServerStub(channel)
     response = stub.Search(pb2.SearchRequest(id=id, count=count))
     print("response: %s, %s" % (response.ids, response.scores))
+
+@click.command()
+@click.argument('key', type=str)
+@click.option('--host', default='localhost:50051', help='server host:port')
+@click.option('--count', default=10, help='server limit count')
+def search_by_key(host, key, count):
+    print("host: %s" % host)
+    channel = grpc.insecure_channel(host)
+    stub = pb2_grpc.ServerStub(channel)
+    response = stub.Search(pb2.SearchRequest(key=key, count=count))
+    print("response: %s, %s" % (response.keys, response.scores))
 
 
 if __name__ == '__main__':
     cli.add_command(test)
     cli.add_command(import_)
     cli.add_command(search)
+    cli.add_command(search_by_key)
     cli()

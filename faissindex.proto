@@ -23,6 +23,7 @@ message IdRequest {
 message SearchRequest {
   int64 id = 1;
   int32 count = 2;
+  string key = 3;
 }
 
 message RestoreRequest {
@@ -44,6 +45,7 @@ message SimpleResponse {
 message SearchResponse {
   repeated int64 ids = 1;
   repeated float scores = 2;
+  repeated string keys = 3;
 }
 
 message TotalResponse {

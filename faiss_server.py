@@ -54,7 +54,7 @@ class FaissServer(pb2_grpc.ServerServicer):
 
     def _load_keys(self, keys_path):
         if not keys_path:
-            return
+            return None, None
         _, keys_path = down_if_remote_path(keys_path)
         keys = pd.read_csv(keys_path, header=None, squeeze=True)
         key_index = pd.Index(keys)

@@ -76,7 +76,7 @@ def test(host, port, dim):
 @click.command('import')
 @click.argument('embs-path')
 @click.argument('ids-path')
-@click.option('--host', default='localhost:50051', help='server host:port')
+@click.option('-h', '--host', default='localhost:50051', help='server host:port')
 def import_(host, embs_path, ids_path):
     print("host: %s" % host)
     channel = grpc.insecure_channel(host)
@@ -93,18 +93,18 @@ def import_(host, embs_path, ids_path):
 
 @click.command()
 @click.argument('id', type=int)
-@click.option('--host', default='localhost:50051', help='server host:port')
+@click.option('-h', '--host', default='localhost:50051', help='server host:port')
 @click.option('--count', default=10, help='server limit count')
-def search(host, id, count):
-    print("host: %s" % host)
-    channel = grpc.insecure_channel(host)
-    stub = pb2_grpc.ServerStub(channel)
-    response = stub.Search(pb2.SearchRequest(id=id, count=count))
-    print("response: %s, %s" % (response.ids, response.scores))
+@click.option('-t', '--timeout', default=0.5, help='request timeout')
+def search(host, id, count, timeout):
+    with grpc.insecure_channel(host) as channel:
+        stub = pb2_grpc.ServerStub(channel)
+        response = stub.Search(pb2.SearchRequest(id=id, count=count), timeout=timeout)
+        print("response: %s, %s" % (response.ids, response.scores))
 
 @click.command()
 @click.argument('key', type=str)
-@click.option('--host', default='localhost:50051', help='server host:port')
+@click.option('-h', '--host', default='localhost:50051', help='server host:port')
 @click.option('--count', default=10, help='server limit count')
 def search_by_key(host, key, count):
     print("host: %s" % host)

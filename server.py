@@ -20,7 +20,8 @@ _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 @click.option('--log', help='log filepath')
 @click.option('--debug', is_flag=True, help='debug')
 @click.option('--no-save', is_flag=True, help='no save when stop service')
-def main(dim, save_path, keys_path, log, debug, no_save):
+@click.option('--max-workers', default=1, help='workers count')
+def main(dim, save_path, keys_path, log, debug, no_save, max_workers):
     if log:
         handler = logging.FileHandler(filename=log)
     else:
@@ -33,7 +34,7 @@ def main(dim, save_path, keys_path, log, debug, no_save):
     root.addHandler(handler)
 
     logging.info('server loading...')
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=1))
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=max_workers))
     servicer = FaissServer(dim, save_path, keys_path)
     pb2_grpc.add_ServerServicer_to_server(servicer, server)
     server.add_insecure_port('[::]:50051')

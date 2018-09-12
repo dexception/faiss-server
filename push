@@ -8,6 +8,7 @@ if [ -z $VERSION ]; then
 fi
 echo "VERSION: $VERSION"
 
+./build
 docker tag $IMAGE:latest $IMAGE:$VERSION
 docker push $IMAGE:$VERSION
 docker push $IMAGE:latest 

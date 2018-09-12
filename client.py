@@ -106,7 +106,8 @@ def search(host, id, count, timeout):
 @click.argument('key', type=str)
 @click.option('-h', '--host', default='localhost:50051', help='server host:port')
 @click.option('--count', default=10, help='server limit count')
-def search_by_key(host, key, count):
+@click.option('-t', '--timeout', default=0.1, help='request timeout')
+def search_by_key(host, key, count, timeout):
     print("host: %s" % host)
     channel = grpc.insecure_channel(host)
     stub = pb2_grpc.ServerStub(channel)

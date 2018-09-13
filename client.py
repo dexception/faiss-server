@@ -110,8 +110,7 @@ def search(host, id, count, timeout):
 def search_by_key(host, key, count, timeout):
     print("host: %s" % host)
     with grpc.insecure_channel(host) as channel:
-        stub = pb2_grpc.ServerStub(channel)
-        response = _search_by_key(host, key, count, timeout, stub)
+        response = _search_by_key(host, key, count, timeout, channel)
     print("response: %s, %s" % (response.keys, response.scores))
 
 def _search_by_key(host, key, count, timeout, channel):

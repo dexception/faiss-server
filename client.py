@@ -109,15 +109,45 @@ def search(host, id, count, timeout):
 @click.option('-t', '--timeout', default=0.1, help='request timeout')
 def search_by_key(host, key, count, timeout):
     print("host: %s" % host)
-    channel = grpc.insecure_channel(host)
-    stub = pb2_grpc.ServerStub(channel)
-    response = stub.Search(pb2.SearchRequest(key=key, count=count))
+    with grpc.insecure_channel(host) as channel:
+        stub = pb2_grpc.ServerStub(channel)
+        response = _search_by_key(host, key, count, timeout, stub)
     print("response: %s, %s" % (response.keys, response.scores))
 
+def _search_by_key(host, key, count, timeout, channel):
+    stub = pb2_grpc.ServerStub(channel)
+    return stub.Search(pb2.SearchRequest(key=key, count=count))
+
+@click.command()
+@click.argument('keys-path', type=str)
+@click.option('-h', '--host', default='localhost:50051', help='server host:port')
+@click.option('--count', default=10, help='server limit count')
+@click.option('-t', '--timeout', default=0.1, help='request timeout')
+def test_search_perform(host, keys_path, count, timeout):
+    print("host: %s" % host)
+    from time import time
+    import pandas as pd
+    from gevent.pool import Pool
+    p = Pool(100)
+    keys = pd.read_csv(keys_path, header=None, squeeze=True, dtype=('str'))
+    channel = grpc.insecure_channel(host)
+
+    def search_fn(key):
+        #print(key)
+        t = time()
+        response = _search_by_key(host, key, count, timeout, channel)
+        return time() - t
+
+    t = time()
+    result = p.imap_unordered(search_fn, keys.sample(100).values)
+    result = list(result)
+    print(time() - t)
+    print(np.array(result).mean())
 
 if __name__ == '__main__':
     cli.add_command(test)
     cli.add_command(import_)
     cli.add_command(search)
     cli.add_command(search_by_key)
+    cli.add_command(test_search_perform)
     cli()

@@ -34,6 +34,7 @@ def main(dim, save_path, keys_path, log, debug, no_save, max_workers):
     root.addHandler(handler)
 
     logging.info('server loading...')
+    logging.info('max workers: %d', max_workers)
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=max_workers))
     servicer = FaissServer(dim, save_path, keys_path)
     pb2_grpc.add_ServerServicer_to_server(servicer, server)

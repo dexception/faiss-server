@@ -3,7 +3,7 @@ FROM daangn/faiss:v20180727
 RUN cd && mkdir .pip && echo "[global]\nindex-url=http://ftp.daumkakao.com/pypi/simple\ntrusted-host=ftp.daumkakao.com" > ./.pip/pip.conf
 #RUN sed -i 's/archive.ubuntu.com/ftp.daumkakao.com/g' /etc/apt/sources.list
 
-ENV GRPC_PYTHON_VERSION 1.4.0
+ENV GRPC_PYTHON_VERSION 1.15.0
 RUN python -m pip install --upgrade pip
 RUN pip install grpcio==${GRPC_PYTHON_VERSION} grpcio-tools==${GRPC_PYTHON_VERSION}
 
@@ -11,7 +11,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 RUN pip install pandas
-RUN pip install gevent==1.2.2
+RUN pip install gevent==1.3.5
 RUN pip install click
 RUN pip install boto3
 

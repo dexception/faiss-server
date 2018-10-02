@@ -39,16 +39,19 @@ def parse_remote_path(save_path):
     return remote_path, save_path
 
 class FaissServer(pb2_grpc.ServerServicer):
-    def __init__(self, dim, save_path, keys_path):
+    def __init__(self, dim, save_path, keys_path, nprobe):
         logging.debug('dim: %d', dim)
         logging.debug('save_path: %s', save_path)
         logging.debug('keys_path: %s', keys_path)
+        logging.debug('nprobe: %d', nprobe)
 
         remote_path, save_path = down_if_remote_path(save_path)
 
         self._remote_path = remote_path
         self._save_path = save_path
         self._index = FaissIndex(dim, save_path)
+        if nprobe > 1:
+            self._index.set_nprobe(nprobe)
         self._keys, self._key_index = self._load_keys(keys_path)
         logging.debug('ntotal: %d', self._index.ntotal())
 

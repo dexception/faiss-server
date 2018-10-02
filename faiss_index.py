@@ -50,3 +50,6 @@ class FaissIndex:
     def save(self, filepath):
         if self.ntotal() > 0:
             faiss.write_index(self._index, filepath)
+
+    def set_nprobe(self, nprobe):
+        faiss.ParameterSpace().set_index_parameter(self._index, "nprobe", nprobe)

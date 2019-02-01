@@ -31,3 +31,8 @@ $ ./restart [faiss-server name]
 ```
 $ ./client [faiss-server name]
 ```
+
+Train and save index file
+```
+docker run --rm -it daangn/faiss-server train.py [options]
+```

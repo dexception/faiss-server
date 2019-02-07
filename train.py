@@ -1,12 +1,13 @@
 import sys
 import math
 import logging
-import tempfile
 from time import time
+from tempfile import NamedTemporaryFile
 
 import faiss
 import click
 import boto3
+from google.cloud import storage
 
 import numpy as np
 
@@ -37,13 +38,32 @@ def test_embs():
     xq[:, 0] += np.arange(nq) / 1000.
     return xb
 
+def download_gs_to_file(gs_url, local_path):
+    client = storage.Client()
+    bucket, blob = gs_url[5:].split('/', 1)
+    bucket = client.get_bucket(bucket)
+    blob = bucket.get_blob(blob)
+    blob.download_to_filename(local_path)
+
+
 @click.command()
 @click.option('--emb-path', help='emb npy filepath')
 @click.option('--id-path', help='id txt filepath')
 @click.option('--index-path', help='index file filepath to save, local or s3 path')
 def main(emb_path, id_path, index_path):
-    embs = np.load(emb_path)
-    ids = np.loadtxt(id_path, dtype=int)
+    if emb_path.startswith('gs://'):
+        with NamedTemporaryFile() as f:
+            download_gs_to_file(emb_path, f.name)
+            embs = np.load(f.name)
+    else:
+        embs = np.load(emb_path)
+
+    if id_path.startswith('gs://'):
+        with NamedTemporaryFile() as f:
+            download_gs_to_file(id_path, f.name)
+            ids = np.loadtxt(f.name, dtype=int)
+    else:
+        ids = np.loadtxt(id_path, dtype=int)
 
     # https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index
     N, dim = embs.shape
@@ -76,7 +96,7 @@ def main(emb_path, id_path, index_path):
     logging.info('Writing index to file')
     t = time()
     if index_path.startswith('s3://'):
-        with tempfile.NamedTemporaryFile() as f:
+        with NamedTemporaryFile() as f:
             faiss.write_index(index, f.name)
             logging.info('Writed to %s, %.2fs', index_path, time() - t)
             logging.info('Uploading index file to %s', index_path)

@@ -14,6 +14,7 @@ RUN pip install pandas
 RUN pip install gevent==1.3.5
 RUN pip install click
 RUN pip install boto3
+RUN pip install --upgrade setuptools 2>/dev/null ; pip install google-cloud-storage
 
 # for click library
 ENV LC_ALL C.UTF-8

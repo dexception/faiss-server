@@ -29,6 +29,11 @@ class ServerStub(object):
         request_serializer=faissindex__pb2.SearchRequest.SerializeToString,
         response_deserializer=faissindex__pb2.SearchResponse.FromString,
         )
+    self.SearchByEmbedding = channel.unary_unary(
+        '/faiss_index.Server/SearchByEmbedding',
+        request_serializer=faissindex__pb2.SearchByEmbeddingRequest.SerializeToString,
+        response_deserializer=faissindex__pb2.SearchResponse.FromString,
+        )
     self.Restore = channel.unary_unary(
         '/faiss_index.Server/Restore',
         request_serializer=faissindex__pb2.RestoreRequest.SerializeToString,
@@ -65,6 +70,13 @@ class ServerServicer(object):
     raise NotImplementedError('Method not implemented!')
 
   def Search(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def SearchByEmbedding(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -108,6 +120,11 @@ def add_ServerServicer_to_server(servicer, server):
       'Search': grpc.unary_unary_rpc_method_handler(
           servicer.Search,
           request_deserializer=faissindex__pb2.SearchRequest.FromString,
+          response_serializer=faissindex__pb2.SearchResponse.SerializeToString,
+      ),
+      'SearchByEmbedding': grpc.unary_unary_rpc_method_handler(
+          servicer.SearchByEmbedding,
+          request_deserializer=faissindex__pb2.SearchByEmbeddingRequest.FromString,
           response_serializer=faissindex__pb2.SearchResponse.SerializeToString,
       ),
       'Restore': grpc.unary_unary_rpc_method_handler(

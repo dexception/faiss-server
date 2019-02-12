@@ -95,6 +95,13 @@ class FaissServer(pb2_grpc.ServerServicer):
             K = self._keys[I[0]]
         return pb2.SearchResponse(ids=I[0], scores=D[0], keys=K)
 
+    def SearchByEmbedding(self, request, context):
+        logging.debug('search_by_emb - embedding: %s', request.embedding[:10])
+        emb = np.array(request.embedding, dtype=np.float32)
+        emb = np.expand_dims(emb, axis=0)
+        D, I = self._index.search(emb, request.count)
+        return pb2.SearchResponse(ids=I[0], scores=D[0])
+
     def Restore(self, request, context):
         logging.debug('restore - %s', request.save_path)
         remote_path, save_path = down_if_remote_path(request.save_path)

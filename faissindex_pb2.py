@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='faissindex.proto',
   package='faiss_index',
   syntax='proto3',
-  serialized_pb=_b('\n\x10\x66\x61issindex.proto\x12\x0b\x66\x61iss_index\"+\n\nAddRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x11\n\tembedding\x18\x02 \x03(\x02\"\x17\n\tIdRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"7\n\rSearchRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\x12\x0b\n\x03key\x18\x03 \x01(\t\"#\n\x0eRestoreRequest\x12\x11\n\tsave_path\x18\x01 \x01(\t\"4\n\rImportRequest\x12\x11\n\tembs_path\x18\x01 \x01(\t\x12\x10\n\x08ids_path\x18\x02 \x01(\t\"\x0e\n\x0c\x45mptyRequest\"!\n\x0eSimpleResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\";\n\x0eSearchResponse\x12\x0b\n\x03ids\x18\x01 \x03(\x03\x12\x0e\n\x06scores\x18\x02 \x03(\x02\x12\x0c\n\x04keys\x18\x03 \x03(\t\"\x1e\n\rTotalResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x32\x9b\x03\n\x06Server\x12=\n\x03\x41\x64\x64\x12\x17.faiss_index.AddRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12?\n\x06Remove\x12\x16.faiss_index.IdRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12\x43\n\x06Search\x12\x1a.faiss_index.SearchRequest\x1a\x1b.faiss_index.SearchResponse\"\x00\x12\x45\n\x07Restore\x12\x1b.faiss_index.RestoreRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12\x43\n\x06Import\x12\x1a.faiss_index.ImportRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12@\n\x05Total\x12\x19.faiss_index.EmptyRequest\x1a\x1a.faiss_index.TotalResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x10\x66\x61issindex.proto\x12\x0b\x66\x61iss_index\"+\n\nAddRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x11\n\tembedding\x18\x02 \x03(\x02\"\x17\n\tIdRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"7\n\rSearchRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\x12\x0b\n\x03key\x18\x03 \x01(\t\"<\n\x18SearchByEmbeddingRequest\x12\x11\n\tembedding\x18\x01 \x03(\x02\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\"#\n\x0eRestoreRequest\x12\x11\n\tsave_path\x18\x01 \x01(\t\"4\n\rImportRequest\x12\x11\n\tembs_path\x18\x01 \x01(\t\x12\x10\n\x08ids_path\x18\x02 \x01(\t\"\x0e\n\x0c\x45mptyRequest\"!\n\x0eSimpleResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\";\n\x0eSearchResponse\x12\x0b\n\x03ids\x18\x01 \x03(\x03\x12\x0e\n\x06scores\x18\x02 \x03(\x02\x12\x0c\n\x04keys\x18\x03 \x03(\t\"\x1e\n\rTotalResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x32\xf6\x03\n\x06Server\x12=\n\x03\x41\x64\x64\x12\x17.faiss_index.AddRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12?\n\x06Remove\x12\x16.faiss_index.IdRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12\x43\n\x06Search\x12\x1a.faiss_index.SearchRequest\x1a\x1b.faiss_index.SearchResponse\"\x00\x12Y\n\x11SearchByEmbedding\x12%.faiss_index.SearchByEmbeddingRequest\x1a\x1b.faiss_index.SearchResponse\"\x00\x12\x45\n\x07Restore\x12\x1b.faiss_index.RestoreRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12\x43\n\x06Import\x12\x1a.faiss_index.ImportRequest\x1a\x1b.faiss_index.SimpleResponse\"\x00\x12@\n\x05Total\x12\x19.faiss_index.EmptyRequest\x1a\x1a.faiss_index.TotalResponse\"\x00\x62\x06proto3')
 )
 
 
@@ -139,6 +139,44 @@ _SEARCHREQUEST = _descriptor.Descriptor(
 )
 
 
+_SEARCHBYEMBEDDINGREQUEST = _descriptor.Descriptor(
+  name='SearchByEmbeddingRequest',
+  full_name='faiss_index.SearchByEmbeddingRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='embedding', full_name='faiss_index.SearchByEmbeddingRequest.embedding', index=0,
+      number=1, type=2, cpp_type=6, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='count', full_name='faiss_index.SearchByEmbeddingRequest.count', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=160,
+  serialized_end=220,
+)
+
+
 _RESTOREREQUEST = _descriptor.Descriptor(
   name='RestoreRequest',
   full_name='faiss_index.RestoreRequest',
@@ -165,8 +203,8 @@ _RESTOREREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=160,
-  serialized_end=195,
+  serialized_start=222,
+  serialized_end=257,
 )
 
 
@@ -203,8 +241,8 @@ _IMPORTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=197,
-  serialized_end=249,
+  serialized_start=259,
+  serialized_end=311,
 )
 
 
@@ -227,8 +265,8 @@ _EMPTYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=251,
-  serialized_end=265,
+  serialized_start=313,
+  serialized_end=327,
 )
 
 
@@ -258,8 +296,8 @@ _SIMPLERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=267,
-  serialized_end=300,
+  serialized_start=329,
+  serialized_end=362,
 )
 
 
@@ -303,8 +341,8 @@ _SEARCHRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=302,
-  serialized_end=361,
+  serialized_start=364,
+  serialized_end=423,
 )
 
 
@@ -334,13 +372,14 @@ _TOTALRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=363,
-  serialized_end=393,
+  serialized_start=425,
+  serialized_end=455,
 )
 
 DESCRIPTOR.message_types_by_name['AddRequest'] = _ADDREQUEST
 DESCRIPTOR.message_types_by_name['IdRequest'] = _IDREQUEST
 DESCRIPTOR.message_types_by_name['SearchRequest'] = _SEARCHREQUEST
+DESCRIPTOR.message_types_by_name['SearchByEmbeddingRequest'] = _SEARCHBYEMBEDDINGREQUEST
 DESCRIPTOR.message_types_by_name['RestoreRequest'] = _RESTOREREQUEST
 DESCRIPTOR.message_types_by_name['ImportRequest'] = _IMPORTREQUEST
 DESCRIPTOR.message_types_by_name['EmptyRequest'] = _EMPTYREQUEST
@@ -369,6 +408,13 @@ SearchRequest = _reflection.GeneratedProtocolMessageType('SearchRequest', (_mess
   # @@protoc_insertion_point(class_scope:faiss_index.SearchRequest)
   ))
 _sym_db.RegisterMessage(SearchRequest)
+
+SearchByEmbeddingRequest = _reflection.GeneratedProtocolMessageType('SearchByEmbeddingRequest', (_message.Message,), dict(
+  DESCRIPTOR = _SEARCHBYEMBEDDINGREQUEST,
+  __module__ = 'faissindex_pb2'
+  # @@protoc_insertion_point(class_scope:faiss_index.SearchByEmbeddingRequest)
+  ))
+_sym_db.RegisterMessage(SearchByEmbeddingRequest)
 
 RestoreRequest = _reflection.GeneratedProtocolMessageType('RestoreRequest', (_message.Message,), dict(
   DESCRIPTOR = _RESTOREREQUEST,
@@ -420,8 +466,8 @@ _SERVER = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=396,
-  serialized_end=807,
+  serialized_start=458,
+  serialized_end=960,
   methods=[
   _descriptor.MethodDescriptor(
     name='Add',
@@ -451,9 +497,18 @@ _SERVER = _descriptor.ServiceDescriptor(
     options=None,
   ),
   _descriptor.MethodDescriptor(
+    name='SearchByEmbedding',
+    full_name='faiss_index.Server.SearchByEmbedding',
+    index=3,
+    containing_service=None,
+    input_type=_SEARCHBYEMBEDDINGREQUEST,
+    output_type=_SEARCHRESPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
     name='Restore',
     full_name='faiss_index.Server.Restore',
-    index=3,
+    index=4,
     containing_service=None,
     input_type=_RESTOREREQUEST,
     output_type=_SIMPLERESPONSE,
@@ -462,7 +517,7 @@ _SERVER = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='Import',
     full_name='faiss_index.Server.Import',
-    index=4,
+    index=5,
     containing_service=None,
     input_type=_IMPORTREQUEST,
     output_type=_SIMPLERESPONSE,
@@ -471,7 +526,7 @@ _SERVER = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='Total',
     full_name='faiss_index.Server.Total',
-    index=5,
+    index=6,
     containing_service=None,
     input_type=_EMPTYREQUEST,
     output_type=_TOTALRESPONSE,

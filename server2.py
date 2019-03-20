@@ -80,7 +80,7 @@ def _reserve_port():
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
     if sock.getsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT) != 1:
         raise RuntimeError("Failed to set SO_REUSEPORT.")
-    sock.bind(('', 0))
+    sock.bind(('', 50051))
     try:
         yield sock.getsockname()[1]
     finally:
@@ -89,7 +89,7 @@ def _reserve_port():
 
 def main():
     with _reserve_port() as port:
-        bind_address = 'localhost:{}'.format(port)
+        bind_address = '0.0.0.0:{}'.format(port)
         _LOGGER.info("Binding to '%s'", bind_address)
         sys.stdout.flush()
         workers = []

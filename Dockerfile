@@ -36,7 +36,7 @@ RUN pip install --upgrade setuptools 2>/dev/null ; pip install google-cloud-stor
 ENV GRPC_PYTHON_VERSION 1.19.0
 RUN apt-get update && apt-get install -y build-essential
 RUN pip install grpcio==${GRPC_PYTHON_VERSION} --no-binary grpcio
-RUN pip install grpcio-tools
+#RUN pip install grpcio-tools
 
 # for click library
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8

@@ -2,8 +2,8 @@ from __future__ import print_function
 import os
 import logging
 import atexit
+import multiprocessing
 from time import time
-from multiprocessing import Pool
 
 import click
 import grpc
@@ -16,7 +16,7 @@ import faissindex_pb2_grpc as pb2_grpc
 def cli():
     pass
 
-_PROCESS_COUNT = 8
+_PROCESS_COUNT = multiprocessing.cpu_count()
 
 _worker_channel_singleton = None
 _worker_stub_singleton = None
@@ -62,7 +62,7 @@ def _run_worker_search_query(emb):
 def main(method, host, timeout, count):
     print("host: %s" % host)
 
-    p = Pool(processes=_PROCESS_COUNT,
+    p = multiprocessing.Pool(processes=_PROCESS_COUNT,
             initializer=_initialize_worker,
             initargs=(host, timeout))
 

@@ -20,8 +20,10 @@ import faissindex_pb2_grpc as pb2_grpc
 from faiss_server import FaissServer
 
 _ONE_DAY = datetime.timedelta(days=1)
-_PROCESS_COUNT = multiprocessing.cpu_count()
+#_PROCESS_COUNT = multiprocessing.cpu_count()
+_PROCESS_COUNT = 4
 _THREAD_CONCURRENCY = _PROCESS_COUNT
+#_THREAD_CONCURRENCY = 4
 
 def _wait_forever(server):
     try:
@@ -49,6 +51,7 @@ def _run_server(bind_address, dim, save_path, keys_path, nprobe):
     pb2_grpc.add_ServerServicer_to_server(servicer, server)
     server.add_insecure_port(bind_address)
     server.start()
+    logging.info('Started new server.')
     _wait_forever(server)
 
 @contextlib.contextmanager
@@ -72,9 +75,8 @@ def _reserve_port():
 @click.option('--keys-path', help='keys file path')
 @click.option('--log', help='log filepath')
 @click.option('--debug', is_flag=True, help='debug')
-@click.option('--max-workers', default=1, help='workers count')
 @click.option('--nprobe', default=1, help='nprobe for the search quality')
-def main(dim, save_path, keys_path, log, debug, max_workers, nprobe):
+def main(dim, save_path, keys_path, log, debug, nprobe):
     if log:
         handler = logging.FileHandler(filename=log)
     else:

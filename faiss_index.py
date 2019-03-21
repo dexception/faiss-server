@@ -9,6 +9,7 @@ class FaissIndex:
         if isfile(save_path):
             logging.debug('restore: %s', save_path)
             self._index = faiss.read_index(save_path)
+            logging.info("dim: %d", self._index.d)
         else:
             self._sub_index = faiss.IndexFlat(dim)
             self._index = faiss.IndexIDMap2(self._sub_index)

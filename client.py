@@ -143,29 +143,6 @@ def test_search_perform(host, keys_path, count, timeout):
     print(time() - t)
     print(np.array(result).mean())
 
-@click.command()
-@click.option('-h', '--host', default='localhost:50051', help='server host:port')
-@click.option('-t', '--timeout', default=0.1, help='request timeout')
-def test_perform(host, timeout):
-    print("host: %s" % host)
-    from time import time
-    import pandas as pd
-    from gevent.pool import Pool
-    p = Pool(100)
-    channel = grpc.insecure_channel(host)
-    stub = pb2_grpc.ServerStub(channel)
-
-    def _fn(key):
-        t = time()
-        response = stub.Total(pb2.EmptyRequest())
-        return time() - t
-
-    t = time()
-    result = p.imap_unordered(_fn, range(1000))
-    result = list(result)
-    print(time() - t)
-    print(np.array(result).mean())
-
 if __name__ == '__main__':
     cli.add_command(test)
     cli.add_command(import_)

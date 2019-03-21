@@ -33,13 +33,6 @@ def is_prime(n):
         return True
 
 
-class PrimeChecker(FaissServer):
-
-    def check(self, request, context):
-        _LOGGER.info('Determining primality of %s', request.candidate)
-        return prime_pb2.Primality(isPrime=is_prime(request.candidate))
-
-
 def _wait_forever(server):
     try:
         while True:
@@ -47,7 +40,7 @@ def _wait_forever(server):
     except KeyboardInterrupt:
         server.stop(None)
 
-def _run_server(bind_address):
+def _run_server(bind_address, dim, save_path, keys_path, no_save, nprobe):
     """Start a server in a subprocess."""
     _LOGGER.info('Starting new server.')
     options = (('grpc.so_reuseport', 1),)
@@ -62,11 +55,7 @@ def _run_server(bind_address):
         futures.ThreadPoolExecutor(max_workers=_THREAD_CONCURRENCY,),
         options=options
         )
-    dim = 0
-    save_path = '20190320_060037.index'
-    keys_path = None
-    nprobe = 100
-    servicer = PrimeChecker(dim, save_path, keys_path, nprobe)
+    servicer = FaissServer(dim, save_path, keys_path, 0, nprobe)
     pb2_grpc.add_ServerServicer_to_server(servicer, server)
     server.add_insecure_port(bind_address)
     server.start()
@@ -87,7 +76,16 @@ def _reserve_port():
         sock.close()
 
 
-def main():
+@click.command()
+@click.argument('dim', type=int)
+@click.option('--save-path', default='faiss_server.index', help='index save path')
+@click.option('--keys-path', help='keys file path')
+@click.option('--log', help='log filepath')
+@click.option('--debug', is_flag=True, help='debug')
+@click.option('--no-save', is_flag=True, help='no save when stop service')
+@click.option('--max-workers', default=1, help='workers count')
+@click.option('--nprobe', default=1, help='nprobe for the search quality')
+def main(dim, save_path, keys_path, log, debug, no_save, max_workers, nprobe):
     with _reserve_port() as port:
         bind_address = '0.0.0.0:{}'.format(port)
         _LOGGER.info("Binding to '%s'", bind_address)
@@ -98,7 +96,7 @@ def main():
             # any gRPC servers start up. See
             # https://github.com/grpc/grpc/issues/16001 for more details.
             worker = multiprocessing.Process(
-                target=_run_server, args=(bind_address,))
+                target=_run_server, args=(bind_address, dim, save_path, keys_path, no_save, nprobe))
             worker.start()
             workers.append(worker)
         for worker in workers:

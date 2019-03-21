@@ -9,7 +9,7 @@ if [[ "$PORT" == "50051" ]]; then
   CMDS="server.py 0 --debug --no-save --nprobe 100
       --save-path article.index --max-workers=8"
 else
-  CMDS="server2.py 0 --debug --no-save --nprobe 100
+  CMDS="server2.py 0 --debug --nprobe 100
       --save-path article.index"
 fi
 

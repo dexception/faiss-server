@@ -67,6 +67,7 @@ class FaissServer(pb2_grpc.ServerServicer):
         return keys.values, key_index
 
     def Total(self, request, context):
+        logging.debug('total request')
         return pb2.TotalResponse(count=self._index.ntotal())
 
     def Add(self, request, context):

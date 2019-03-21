@@ -45,11 +45,21 @@ def _run_worker_query(primality_candidate):
     response = _worker_stub_singleton.Total(pb2.EmptyRequest(), timeout=_timeout)
     return time() - t
 
+def _run_worker_search_query(emb):
+    t = time()
+    request = pb2.SearchByEmbeddingRequest(embedding=emb, count=10)
+    try:
+        response = _worker_stub_singleton.SearchByEmbedding(request, timeout=_timeout)
+    except grpc.RpcError as e:
+        print(e.details())
+    return time() - t
+
 @click.command()
+@click.argument('method', default='total')
 @click.option('-h', '--host', default='localhost:50051', help='server host:port')
 @click.option('-t', '--timeout', default=0.1, help='request timeout')
 @click.option('-c', '--count', default=100, help='requests count')
-def total(host, timeout, count):
+def main(method, host, timeout, count):
     print("host: %s" % host)
 
     p = Pool(processes=_PROCESS_COUNT,
@@ -57,12 +67,15 @@ def total(host, timeout, count):
             initargs=(host, timeout))
 
     t = time()
-    result = p.map(_run_worker_query, range(count))
+    if method == 'total':
+        result = p.map(_run_worker_query, range(count))
+    elif method == 'search':
+        vals = np.random.rand(count, 128)
+        result = p.map(_run_worker_search_query, list(vals))
     result = list(result)
     print(time() - t)
     print(np.array(result).mean())
 
 
 if __name__ == '__main__':
-    cli.add_command(total)
-    cli()
+    main()

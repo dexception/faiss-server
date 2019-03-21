@@ -19,19 +19,9 @@ import click
 import faissindex_pb2_grpc as pb2_grpc
 from faiss_server import FaissServer
 
-_LOGGER = logging.getLogger(__name__)
-
 _ONE_DAY = datetime.timedelta(days=1)
 _PROCESS_COUNT = multiprocessing.cpu_count()
 _THREAD_CONCURRENCY = _PROCESS_COUNT
-
-def is_prime(n):
-    for i in range(2, int(math.ceil(math.sqrt(n)))):
-        if n % i == 0:
-            return False
-    else:
-        return True
-
 
 def _wait_forever(server):
     try:
@@ -40,9 +30,9 @@ def _wait_forever(server):
     except KeyboardInterrupt:
         server.stop(None)
 
-def _run_server(bind_address, dim, save_path, keys_path, no_save, nprobe):
+def _run_server(bind_address, dim, save_path, keys_path, nprobe):
     """Start a server in a subprocess."""
-    _LOGGER.info('Starting new server.')
+    logging.info('Starting new server.')
     options = (('grpc.so_reuseport', 1),)
 
     # WARNING: This example takes advantage of SO_REUSEPORT. Due to the
@@ -82,13 +72,23 @@ def _reserve_port():
 @click.option('--keys-path', help='keys file path')
 @click.option('--log', help='log filepath')
 @click.option('--debug', is_flag=True, help='debug')
-@click.option('--no-save', is_flag=True, help='no save when stop service')
 @click.option('--max-workers', default=1, help='workers count')
 @click.option('--nprobe', default=1, help='nprobe for the search quality')
-def main(dim, save_path, keys_path, log, debug, no_save, max_workers, nprobe):
+def main(dim, save_path, keys_path, log, debug, max_workers, nprobe):
+    if log:
+        handler = logging.FileHandler(filename=log)
+    else:
+        handler = logging.StreamHandler(sys.stdout)
+    formatter = logging.Formatter('[PID %(process)d] %(asctime)s:%(levelname)s:%(name)s - %(message)s')
+    handler.setFormatter(formatter)
+    root = logging.getLogger()
+    level = debug and logging.DEBUG or logging.INFO
+    root.setLevel(level)
+    root.addHandler(handler)
+
     with _reserve_port() as port:
         bind_address = '0.0.0.0:{}'.format(port)
-        _LOGGER.info("Binding to '%s'", bind_address)
+        logging.info("Binding to '%s'", bind_address)
         sys.stdout.flush()
         workers = []
         for _ in range(_PROCESS_COUNT):
@@ -96,7 +96,7 @@ def main(dim, save_path, keys_path, log, debug, no_save, max_workers, nprobe):
             # any gRPC servers start up. See
             # https://github.com/grpc/grpc/issues/16001 for more details.
             worker = multiprocessing.Process(
-                target=_run_server, args=(bind_address, dim, save_path, keys_path, no_save, nprobe))
+                target=_run_server, args=(bind_address, dim, save_path, keys_path, nprobe))
             worker.start()
             workers.append(worker)
         for worker in workers:
@@ -104,9 +104,4 @@ def main(dim, save_path, keys_path, log, debug, no_save, max_workers, nprobe):
 
 
 if __name__ == '__main__':
-    handler = logging.StreamHandler(sys.stdout)
-    formatter = logging.Formatter('[PID %(process)d] %(message)s')
-    handler.setFormatter(formatter)
-    _LOGGER.addHandler(handler)
-    _LOGGER.setLevel(logging.INFO)
     main()
